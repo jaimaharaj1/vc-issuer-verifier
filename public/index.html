@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VC Issuer & Verifier</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav id="navbar" class="navbar"></nav>
+
+  <div class="container">
+    <div id="info-banner" class="info-banner" style="display:none;"></div>
+
+    <div class="page-header">
+      <h1>Welcome, <span id="user-name"></span></h1>
+      <p>Issue and verify Entra Verified ID credentials</p>
+    </div>
+
+    <div class="action-grid">
+      <a href="/issue" class="action-card">
+        <div class="glass-card">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <line x1="12" y1="8" x2="12" y2="16"/>
+              <line x1="8" y1="12" x2="16" y2="12"/>
+            </svg>
+          </div>
+          <h3>Issue Credential</h3>
+          <p>Get a new Verified ID credential added to your Microsoft Authenticator wallet.</p>
+        </div>
+      </a>
+
+      <a href="/verify" class="action-card">
+        <div class="glass-card">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+          <h3>Verify Credential</h3>
+          <p>Present a credential from your wallet to prove your claims, with optional FaceCheck.</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const ok = await App.init();
+      if (ok) {
+        document.getElementById('user-name').textContent = App.user.name || App.user.username;
+      }
+    });
+  </script>
+</body>
+</html>

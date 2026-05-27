@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Issue Credential — VC Issuer & Verifier</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav id="navbar" class="navbar"></nav>
+
+  <div class="container">
+    <div id="info-banner" class="info-banner" style="display:none;"></div>
+
+    <div class="page-header">
+      <h1>Issue a Credential</h1>
+      <p>Select a credential to add to your Microsoft Authenticator wallet</p>
+    </div>
+
+    <div id="credential-list" class="credential-grid"></div>
+
+    <div id="options-panel" class="options-panel">
+      <div id="photo-options" class="option-group" style="display:none;">
+        <label>Photo Source</label>
+        <div class="radio-group">
+          <label class="radio-option" id="opt-entra">
+            <input type="radio" name="photoSource" value="entra"> Use Entra ID photo
+          </label>
+          <label class="radio-option" id="opt-upload">
+            <input type="radio" name="photoSource" value="upload"> Upload from file
+          </label>
+        </div>
+        <div id="upload-area" class="file-upload" style="display:none;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+          <span>Click or drag to upload a photo</span>
+          <input type="file" id="photo-file" accept="image/jpeg,image/png">
+          <img class="preview" id="photo-preview" alt="Preview">
+        </div>
+      </div>
+
+      <button id="btn-issue" class="btn btn-primary" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <line x1="12" y1="8" x2="12" y2="16"/>
+          <line x1="8" y1="12" x2="16" y2="12"/>
+        </svg>
+        Issue Credential
+      </button>
+    </div>
+
+    <div id="qr-container" class="qr-container">
+      <div id="pin-display" class="pin-display" style="display:none;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0110 0v4"/>
+        </svg>
+        <div>
+          <div style="font-size:0.8rem;color:var(--text-secondary);">Enter this PIN in Authenticator:</div>
+          <div class="pin-value" id="pin-value"></div>
+        </div>
+      </div>
+
+      <div class="qr-code">
+        <img id="qr-image" alt="QR Code">
+      </div>
+
+      <a id="deep-link" class="btn btn-primary deep-link" href="#">
+        Open in Authenticator
+      </a>
+
+      <div id="status-indicator" class="status-indicator status-waiting">
+        <div class="spinner"></div>
+        <span id="status-text">Waiting for QR code to be scanned...</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/issue.js"></script>
+</body>
+</html>

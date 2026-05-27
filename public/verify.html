@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Credential — VC Issuer & Verifier</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <nav id="navbar" class="navbar"></nav>
+
+  <div class="container">
+    <div id="info-banner" class="info-banner" style="display:none;"></div>
+
+    <div class="page-header">
+      <h1>Verify a Credential</h1>
+      <p>Select a credential type to verify and present your claims</p>
+    </div>
+
+    <div id="credential-list" class="credential-grid"></div>
+
+    <div id="options-panel" class="options-panel">
+      <div id="facecheck-option" class="option-group" style="display:none;">
+        <label>FaceCheck Verification</label>
+        <div class="toggle-container">
+          <div id="facecheck-toggle" class="toggle"></div>
+          <span id="facecheck-label">Enable liveness check with facial recognition</span>
+        </div>
+      </div>
+
+      <button id="btn-verify" class="btn btn-primary" disabled>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        Verify Credential
+      </button>
+    </div>
+
+    <div id="qr-container" class="qr-container">
+      <div class="qr-code">
+        <img id="qr-image" alt="QR Code">
+      </div>
+
+      <a id="deep-link" class="btn btn-primary deep-link" href="#">
+        Open in Authenticator
+      </a>
+
+      <div id="status-indicator" class="status-indicator status-waiting">
+        <div class="spinner"></div>
+        <span id="status-text">Waiting for QR code to be scanned...</span>
+      </div>
+    </div>
+
+    <div id="claims-container" class="glass-card" style="display:none; margin-top:2rem;">
+      <h3 style="margin-bottom:1rem;">Verified Claims</h3>
+      <table id="claims-table" class="claims-table">
+        <thead>
+          <tr><th>Claim</th><th>Value</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="/js/common.js"></script>
+  <script src="/js/verify.js"></script>
+</body>
+</html>

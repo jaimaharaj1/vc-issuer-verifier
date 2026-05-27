@@ -1,0 +1,20 @@
+{
+  "name": "vc-issuer-verifier",
+  "version": "1.0.0",
+  "description": "Entra Verified ID credential issuance and verification app with FaceCheck support",
+  "main": "server/app.js",
+  "scripts": {
+    "start": "node server/app.js",
+    "dev": "node --watch server/app.js"
+  },
+  "keywords": ["entra", "verified-id", "verifiable-credentials", "facecheck"],
+  "author": "IDNA CAT",
+  "license": "MIT",
+  "dependencies": {
+    "@azure/msal-node": "^2.16.0",
+    "body-parser": "^1.20.3",
+    "express": "^4.21.0",
+    "express-session": "^1.18.1",
+    "uuid": "^10.0.0"
+  }
+}
