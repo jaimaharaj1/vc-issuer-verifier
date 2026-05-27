@@ -75,8 +75,10 @@ app.use(session({
   cookie: { secure: false, maxAge: 30 * 60 * 1000 }
 }));
 
-// Static files
-app.use(express.static(path.join(__dirname, '..', 'public')));
+// Static files — only serve assets (CSS, JS, images), not HTML pages
+app.use('/css', express.static(path.join(__dirname, '..', 'public', 'css')));
+app.use('/js', express.static(path.join(__dirname, '..', 'public', 'js')));
+app.use('/img', express.static(path.join(__dirname, '..', 'public', 'img')));
 
 // Auth middleware
 function requireAuth(req, res, next) {
