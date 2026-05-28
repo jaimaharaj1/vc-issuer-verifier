@@ -32,10 +32,14 @@ module.exports = function (config, msalClient, msalClientCredentialRequest, stor
     const claims = {
       given_name: user.name ? user.name.split(' ')[0] : '',
       family_name: user.name ? user.name.split(' ').slice(1).join(' ') : '',
+      // Send multiple casings for broad compatibility with various rules definitions
+      displayName: user.name || '',
       DisplayName: user.name || '',
-      DiplayName: user.name || '',  // Match common display def typo
+      DiplayName: user.name || '',
+      firstName: user.name ? user.name.split(' ')[0] : '',
+      lastName: user.name ? user.name.split(' ').slice(1).join(' ') : '',
+      userPrincipalName: user.username || '',
       UserPrincipalName: user.username || '',
-      userPrincipalName: user.username || '',  // Match alternate casing
       oid: user.oid || ''
     };
 
