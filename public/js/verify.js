@@ -181,12 +181,13 @@
       // Add claims
       if (vc.claims) {
         Object.entries(vc.claims).forEach(([key, value]) => {
-          // Skip photo data (too large to display)
-          if (typeof value === 'string' && value.length > 500) {
-            value = `[${key} — ${value.length} characters]`;
-          }
           const row = document.createElement('tr');
-          row.innerHTML = `<td style="color:var(--text-secondary);">${key}</td><td>${escapeHtml(String(value))}</td>`;
+          // Render photo claims as images
+          if (typeof value === 'string' && value.length > 500 && /^[A-Za-z0-9+/=\r\n]+$/.test(value.substring(0, 100))) {
+            row.innerHTML = `<td style="color:var(--text-secondary);">${key}</td><td><img src="data:image/jpeg;base64,${value}" style="width:120px;height:120px;border-radius:12px;object-fit:cover;" alt="Photo"></td>`;
+          } else {
+            row.innerHTML = `<td style="color:var(--text-secondary);">${key}</td><td>${escapeHtml(String(value))}</td>`;
+          }
           tbody.appendChild(row);
         });
       }

@@ -65,6 +65,7 @@ setInterval(() => {
 
 // Express app
 const app = express();
+app.set('trust proxy', 1); // Trust Azure App Service reverse proxy
 app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: false }));
 
@@ -126,7 +127,7 @@ app.get('/auth/callback', async (req, res) => {
     };
     req.session.accessToken = tokenResponse.accessToken;
 
-    const returnTo = req.session.returnTo || '/';
+    const returnTo = req.session.returnTo || '/home';
     delete req.session.returnTo;
     res.redirect(returnTo);
   } catch (err) {
@@ -228,9 +229,19 @@ app.post('/api/callback', (req, res) => {
   res.status(200).json({ message: 'OK' });
 });
 
-// ─── Page Routes (serve HTML with auth) ────────────────────────
+// ─── Page Routes ───────────────────────────────────────────────
 
-app.get('/', requireAuth, (req, res) => {
+// Public landing page (no auth required)
+app.get('/', (req, res) => {
+  // If already signed in, redirect to home
+  if (req.session && req.session.user) {
+    return res.redirect('/home');
+  }
+  res.sendFile(path.join(__dirname, '..', 'public', 'welcome.html'));
+});
+
+// Authenticated pages
+app.get('/home', requireAuth, (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 });
 
@@ -265,7 +276,11 @@ app.use((err, req, res, next) => {
 
 function getBaseUrl(req) {
   const host = req.headers['x-forwarded-host'] || req.headers.host;
-  const proto = req.headers['x-forwarded-proto'] || req.protocol;
+  let proto = req.headers['x-forwarded-proto'] || req.protocol;
+  // Azure App Service always terminates TLS — force HTTPS for non-localhost
+  if (host && !host.startsWith('localhost')) {
+    proto = 'https';
+  }
   return `${proto}://${host}`;
 }
 

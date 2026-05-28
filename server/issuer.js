@@ -33,6 +33,7 @@ module.exports = function (config, msalClient, msalClientCredentialRequest, stor
       given_name: user.name ? user.name.split(' ')[0] : '',
       family_name: user.name ? user.name.split(' ').slice(1).join(' ') : '',
       DisplayName: user.name || '',
+      DiplayName: user.name || '',  // Match common display def typo
       UserPrincipalName: user.username || '',
       oid: user.oid || ''
     };

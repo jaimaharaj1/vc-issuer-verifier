@@ -43,7 +43,7 @@ const App = {
         <span>${App.config.clientName}</span>
       </a>
       <div class="navbar-links">
-        <a href="/" class="${currentPath === '/' ? 'active' : ''}">Home</a>
+        <a href="/home" class="${currentPath === '/home' ? 'active' : ''}">Home</a>
         <a href="/issue" class="${currentPath === '/issue' ? 'active' : ''}">Issue</a>
         <a href="/verify" class="${currentPath === '/verify' ? 'active' : ''}">Verify</a>
       </div>
