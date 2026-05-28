@@ -35,6 +35,7 @@ module.exports = function (config, msalClient, msalClientCredentialRequest, stor
       DisplayName: user.name || '',
       DiplayName: user.name || '',  // Match common display def typo
       UserPrincipalName: user.username || '',
+      userPrincipalName: user.username || '',  // Match alternate casing
       oid: user.oid || ''
     };
 
